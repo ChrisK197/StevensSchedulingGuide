@@ -6,11 +6,61 @@
     <title>Stevens Scheduling Guide</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="form">
+    <header class="toolbar">
+        <a href="index.html" class="logo-link">
+            <img src="stevens_logo.png" alt="Stevens Institute of Technology" class="logo">
+        </a>
+        <nav class="nav-options">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="login.html" class="nav-link">Log in</a>
+        </nav>
+    </header>
+    <a href="index.html">Go back</a>
     <h1>New Schedule</h1>
     <div class="box">
         <h2>Schedule name</h2>
         <input type="text" id="scheduleName" name="scheduleName" placeholder="Enter schedule name">
+    </div>
+    <div class="box">
+        <h2>Academic Progress</h2>
+        <p>Please select the semester you are CURRENTLY in</p>
+        <ul class="radiolist">
+            <li>
+                <input type="radio" id="item1">
+                <label for="item1">Freshman Fall</label>
+            </li>
+            <li>
+                <input type="radio" id="item2">
+                <label for="item2">Freshman Spring</label>
+            </li>
+            <li>
+                <input type="radio" id="item3">
+                <label for="item3">Sophomore Fall</label>
+            </li>
+            <li>
+                <input type="radio" id="item4">
+                <label for="item4">Sophomore Spring</label>
+            </li>
+            <li>
+                <input type="radio" id="item5">
+                <label for="item5">Junior Fall</label>
+            </li>
+            <li>
+                <input type="radio" id="item6">
+                <label for="item6">Junior Spring</label>
+            </li>
+            <li>
+                <input type="radio" id="item7">
+                <label for="item7">Senior Fall</label>
+            </li>
+            <li>
+                <input type="radio" id="item8">
+                <label for="item8">Senior Spring</label>
+            </li>
+        </ul>
     </div>
     <div class="box">
         <h2>Courses already taken</h2>
@@ -33,60 +83,60 @@
                 <label for="item4">MA 126 Multivariable Calculus I</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">MA 222 Probability and Statistics</label>
+                <input type="checkbox" id="item5">
+                <label for="item5">MA 222 Probability and Statistics</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">MA 331 Intermediate Statistics</label>
+                <input type="checkbox" id="item6">
+                <label for="item6">MA 331 Intermediate Statistics</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 101 Research and Entrepreneurship in Computing</label>
+                <input type="checkbox" id="item7">
+                <label for="item7">CS 101 Research and Entrepreneurship in Computing</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 115 Introduction to Computer Science</label>
+                <input type="checkbox" id="item8">
+                <label for="item8">CS 115 Introduction to Computer Science</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 135 Discrete Structure</label>
+                <input type="checkbox" id="item9">
+                <label for="item9">CS 135 Discrete Structure</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 284 Data Structure</label>
+                <input type="checkbox" id="item10">
+                <label for="item10">CS 284 Data Structure</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 334 Theory of Computation</label>
+                <input type="checkbox" id="item11">
+                <label for="item11">CS 334 Theory of Computation</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 382 Computer Architecture and Organization</label>
+                <input type="checkbox" id="item12">
+                <label for="item12">CS 382 Computer Architecture and Organization</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 385 Algorithms</label>
+                <input type="checkbox" id="item13">
+                <label for="item13">CS 385 Algorithms</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 392 Systems Programming</label>
+                <input type="checkbox" id="item14">
+                <label for="item14">CS 392 Systems Programming</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 396 Security, Privacy and Society</label>
+                <input type="checkbox" id="item15">
+                <label for="item15">CS 396 Security, Privacy and Society</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 423 Senior Design I</label>
+                <input type="checkbox" id="item16">
+                <label for="item16">CS 423 Senior Design I</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 424 Senior Design II</label>
+                <input type="checkbox" id="item17">
+                <label for="item17">CS 424 Senior Design II</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 496 Principles of Programming Languages</label>
+                <input type="checkbox" id="item18">
+                <label for="item18">CS 496 Principles of Programming Languages</label>
             </li>
         </ul>
     </div>
@@ -168,8 +218,8 @@
             </li>
         </ul>
     </div>
-    <div class="save-button-container">
-        <button class="button save-button">Create Schedule</button>
+    <div class="save-bubuttontton-container">
+        <button class=" save-button">Create Schedule</button>
     </div>
     <script>
         // Array to store checked items

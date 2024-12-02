@@ -1,6 +1,65 @@
-.home {
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f87d7d;
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    border-radius: 5px;
+}
+
+.nav-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background-color: #555;
+}
+
+body {
+    padding-top: 70px;
+    margin: 0;
+}
+
+.home, .login {
     justify-content: center;
 }
+
+.about, .contact, .form {
+    padding-top: 100px;
+}
+
+
 
 .top-image-container {
     width: 100%;
@@ -9,7 +68,7 @@
 }
 
 .top-image {
-    width: 50%;
+    width: 20%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -28,7 +87,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
-    background-color: grey;
+    background-color: white;
 }
 
 h1 {
@@ -41,13 +100,20 @@ h2 {
     margin-bottom: 20px;
 }
 
-p {
-    color: #fff9f9;
+.form p, .home p, .login p {
+    color: #3f3c3c;
     font-size: 18px;
     margin-bottom: 30px;
 }
 
-.button {
+.about p, .contact p {
+    color: #3f3c3c;
+    font-size: 18px;
+    margin-bottom: 30px;
+    margin-left: 100px;
+}
+
+.start-button {
     background-color: #ff4c4c;
     color: white;
     padding: 15px 30px;
@@ -58,7 +124,28 @@ p {
     cursor: pointer;
 }
 
-.button:hover {
+.start-button:hover {
+    background-color: #cc0000;
+}
+
+.login label {
+    color: #3f3c3c;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.login-button {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
     background-color: #cc0000;
 }
 
@@ -92,7 +179,24 @@ p {
     transform: scale(1.5); /* Makes the checkbox larger */
 }
 
-input[type="text"] {
+.radiolist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.radiolist li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.radiolist input[type="radio"] {
+    margin-right: 10px;
+    transform: scale(1.5); /* Makes the checkbox larger */
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
     padding: 15px 20px;
     font-size: 16px;
     width: 100%;
@@ -103,13 +207,14 @@ input[type="text"] {
     transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
     outline: none;
     border-color: #007bff;
     background-color: #e9f6ff;
 }
 
-input[type="text"]::placeholder {
+
+input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="password"]::placeholder {
     color: #aaa;
     font-style: italic;
 }
@@ -130,6 +235,7 @@ input[type="text"]::placeholder {
     border-radius: 5px;          /* Rounded corners */
     cursor: pointer;             /* Pointer cursor on hover */
     transition: background-color 0.3s ease; /* Smooth color transition on hover */
+    margin-bottom: 20px;
 }
 
 /* Hover state for the save button */
