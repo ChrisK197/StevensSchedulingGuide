@@ -167,27 +167,27 @@
         </ul>
     </div>
     <div class="box">
-        <h2>Desired Electives</h2>
-        <p>Please select the number of courses you would like to take from each category:</p>
+        <h2>Remaining Electives</h2>
+        <p>Please select the number of courses you have left to complete from each category:</p>
         <ul class="numlist">
             <li>
-                <input type="number" id="num1" max="6" oninput="validateInput(this)">
+                <input type="number" id="num1" max="6" oninput="validateInput(this, 6)">
                 <label for="num1">Lower Humanities</label>
             </li>
             <li>
-                <input type="number" id="num2" max="6" oninput="validateInput(this)">
+                <input type="number" id="num2" max="6" oninput="validateInput(this, 6)">
                 <label for="num2">Upper Humanities</label>
             </li>
             <li>
-                <input type="number" id="num3" max="6" oninput="validateInput(this)">
+                <input type="number" id="num3" max="11" oninput="validateInput(this, 11)">
                 <label for="num3">Technical Elective</label>
             </li>
             <li>
-                <input type="number" id="num4" max="6" oninput="validateInput(this)">
+                <input type="number" id="num4" max="2" oninput="validateInput(this, 2)">
                 <label for="num4">Science/Math Elective</label>
             </li>
             <li>
-                <input type="number" id="num5" max="6" oninput="validateInput(this)">
+                <input type="number" id="num5" max="2" oninput="validateInput(this, 2)">
                 <label for="num5">General Elective</label>
             </li>
         </ul>
@@ -256,11 +256,11 @@
         });
 
         // Check numboxes
-        function validateInput(input) {
+        function validateInput(input, max) {
             input.value = input.value.replace(/[^0-9]/g, '');
-            if (parseInt(input.value) > 6) {
+            if (parseInt(input.value) > max) {
                 input.value = 6; // Reset to the maximum allowed value
-                alert("The maximum number of allowed courses is 6.");
+                alert("The maximum number of allowed courses is " + max.toString() + ".");
             }
         }
 
