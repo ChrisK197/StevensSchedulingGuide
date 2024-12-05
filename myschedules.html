@@ -6,7 +6,7 @@
     <title>Stevens Scheduling Guide</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="about">
+<body class="myscheds">
     <header class="toolbar">
         <a href="index.html" class="logo-link">
             <img src="stevens_logo.png" alt="Stevens Institute of Technology" class="logo">
@@ -26,14 +26,12 @@
         document.addEventListener("DOMContentLoaded", () => {
             const signOutButton = document.getElementById("sign-out");
 
-            // Sign out functionality
             signOutButton.addEventListener("click", () => {
-                localStorage.setItem("isSignedIn", "false"); // Clear login state
+                localStorage.setItem("isSignedIn", "false");
                 alert("You have signed out.");
-                window.location.href = "index.html"; // Redirect to home page
+                window.location.href = "index.html";
             });
 
-            // Update navbar for this page
             updateAuthState();
         });
     </script>
