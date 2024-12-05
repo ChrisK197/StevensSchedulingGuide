@@ -24,6 +24,7 @@
         <h2>Schedule name</h2>
         <input type="text" id="scheduleName" name="scheduleName" placeholder="Enter schedule name">
     </div>
+    <!--
     <div class="box">
         <h2>Academic Progress</h2>
         <p>Please select the semester you are CURRENTLY in</p>
@@ -62,164 +63,171 @@
             </li>
         </ul>
     </div>
+    -->
     <div class="box">
-        <h2>Courses already taken</h2>
-        <p>Please select the courses you have already taken:</p>
+        <h2>Required Courses</h2>
+        <p>Please select the courses you have already completed:</p>
         <ul class="checklist">
             <li>
                 <input type="checkbox" id="item1">
-                <label for="item1">MA 121 Differential Calculus</label>
+                <label for="item1">HASS 103 Writing and Communications Colloquim (formerly CAL 103) </label>
             </li>
             <li>
                 <input type="checkbox" id="item2">
-                <label for="item2">MA 122 Integral Calculus</label>
+                <label for="item2">HASS 105 Knowledge, Nature, Culture (formerly CAL 105)</label>
             </li>
             <li>
                 <input type="checkbox" id="item3">
-                <label for="item3">MA 125 Vectors and Matrices</label>
+                <label for="item3">Science I (PEP 111 or CH 115)</label>
             </li>
             <li>
                 <input type="checkbox" id="item4">
-                <label for="item4">MA 126 Multivariable Calculus I</label>
+                <label for="item4">Science II (PEP 112, CH 116, or BIO 181)</label>
             </li>
             <li>
                 <input type="checkbox" id="item5">
-                <label for="item5">MA 222 Probability and Statistics</label>
+                <label for="item5">Science Lab (PEP 221, CH 117, or BIO 182)</label>
             </li>
             <li>
                 <input type="checkbox" id="item6">
-                <label for="item6">MA 331 Intermediate Statistics</label>
+                <label for="item6">MA 121 Differential Calculus</label>
             </li>
             <li>
                 <input type="checkbox" id="item7">
-                <label for="item7">CS 101 Research and Entrepreneurship in Computing</label>
+                <label for="item7">MA 122 Integral Calculus</label>
             </li>
             <li>
                 <input type="checkbox" id="item8">
-                <label for="item8">CS 115 Introduction to Computer Science</label>
+                <label for="item8">MA 125 Vectors and Matrices</label>
             </li>
             <li>
                 <input type="checkbox" id="item9">
-                <label for="item9">CS 135 Discrete Structure</label>
+                <label for="item9">MA 126 Multivariable Calculus I</label>
             </li>
             <li>
                 <input type="checkbox" id="item10">
-                <label for="item10">CS 284 Data Structure</label>
+                <label for="item10">MA 222 Probability and Statistics</label>
             </li>
             <li>
                 <input type="checkbox" id="item11">
-                <label for="item11">CS 334 Theory of Computation</label>
+                <label for="item11">MA 331 Intermediate Statistics</label>
             </li>
             <li>
                 <input type="checkbox" id="item12">
-                <label for="item12">CS 382 Computer Architecture and Organization</label>
+                <label for="item12">CS 101 Research and Entrepreneurship in Computing</label>
             </li>
             <li>
                 <input type="checkbox" id="item13">
-                <label for="item13">CS 385 Algorithms</label>
+                <label for="item13">CS 115 Introduction to Computer Science</label>
             </li>
             <li>
                 <input type="checkbox" id="item14">
-                <label for="item14">CS 392 Systems Programming</label>
+                <label for="item14">CS 135 Discrete Structure</label>
             </li>
             <li>
                 <input type="checkbox" id="item15">
-                <label for="item15">CS 396 Security, Privacy and Society</label>
+                <label for="item15">CS 284 Data Structure</label>
             </li>
             <li>
                 <input type="checkbox" id="item16">
-                <label for="item16">CS 423 Senior Design I</label>
+                <label for="item16">CS 334 Theory of Computation</label>
             </li>
             <li>
                 <input type="checkbox" id="item17">
-                <label for="item17">CS 424 Senior Design II</label>
+                <label for="item17">CS 382 Computer Architecture and Organization</label>
             </li>
             <li>
                 <input type="checkbox" id="item18">
-                <label for="item18">CS 496 Principles of Programming Languages</label>
+                <label for="item18">CS 385 Algorithms</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item19">
+                <label for="item19">CS 392 Systems Programming</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item20">
+                <label for="item20">CS 396 Security, Privacy and Society</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item21">
+                <label for="item21">CS 423 Senior Design I</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item22">
+                <label for="item22">CS 424 Senior Design II</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item23">
+                <label for="item23">CS 496 Principles of Programming Languages</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item24">
+                <label for="item24">CS Humanities (HSS 371 or HPL 455)</label>
             </li>
         </ul>
     </div>
     <div class="box">
-        <h2>Desired courses</h2>
-        <p>Please select the courses you would like to take:</p>
+        <h2>Desired Electives</h2>
+        <p>Please select the number of courses you would like to take from each category:</p>
+        <ul class="numlist">
+            <li>
+                <input type="number" id="num1" max="6" oninput="validateInput(this)">
+                <label for="num1">Lower Humanities</label>
+            </li>
+            <li>
+                <input type="number" id="num2" max="6" oninput="validateInput(this)">
+                <label for="num2">Upper Humanities</label>
+            </li>
+            <li>
+                <input type="number" id="num3" max="6" oninput="validateInput(this)">
+                <label for="num3">Technical Elective</label>
+            </li>
+            <li>
+                <input type="number" id="num4" max="6" oninput="validateInput(this)">
+                <label for="num4">Science/Math Elective</label>
+            </li>
+            <li>
+                <input type="number" id="num5" max="6" oninput="validateInput(this)">
+                <label for="num5">General Elective</label>
+            </li>
+        </ul>
+    </div>
+    <div class="box">
+        <h2>Interests</h2>
+        <p>Please select what subjects you are interestred in:</p>
         <ul class="checklist">
             <li>
-                <input type="checkbox" id="item1">
-                <label for="item1">MA 121 Differential Calculus</label>
+                <input type="checkbox" id="int1">
+                <label for="int1">Computer Programming</label>
             </li>
             <li>
-                <input type="checkbox" id="item2">
-                <label for="item2">MA 122 Integral Calculus</label>
+                <input type="checkbox" id="int2">
+                <label for="int2">Math and Theory</label>
             </li>
             <li>
-                <input type="checkbox" id="item3">
-                <label for="item3">MA 125 Vectors and Matrices</label>
+                <input type="checkbox" id="int3">
+                <label for="int3">History</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">MA 126 Multivariable Calculus I</label>
+                <input type="checkbox" id="int4">
+                <label for="int4">Literature and Art</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">MA 222 Probability and Statistics</label>
+                <input type="checkbox" id="int5">
+                <label for="int5">Economics</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">MA 331 Intermediate Statistics</label>
+                <input type="checkbox" id="int6">
+                <label for="int6">Foreign Language</label>
             </li>
             <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 101 Research and Entrepreneurship in Computing</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 115 Introduction to Computer Science</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 135 Discrete Structure</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 284 Data Structure</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 334 Theory of Computation</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 382 Computer Architecture and Organization</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 385 Algorithms</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 392 Systems Programming</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 396 Security, Privacy and Society</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 423 Senior Design I</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 424 Senior Design II</label>
-            </li>
-            <li>
-                <input type="checkbox" id="item4">
-                <label for="item4">CS 496 Principles of Programming Languages</label>
+                <input type="checkbox" id="int7">
+                <label for="int7">Science and Engineering</label>
             </li>
         </ul>
     </div>
     <div class="save-bubuttontton-container">
-        <button class=" save-button">Create Schedule</button>
+        <button class=" save-button" onclick="validateSchedule()">Create Schedule</button>
     </div>
     <script>
         // Array to store checked items
@@ -246,6 +254,27 @@
                 console.log(checkedItems); // Log the updated array
             });
         });
+
+        // Check numboxes
+        function validateInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+            if (parseInt(input.value) > 6) {
+                input.value = 6; // Reset to the maximum allowed value
+                alert("The maximum number of allowed courses is 6.");
+            }
+        }
+
+        // Check for schedule name
+        function validateSchedule() {
+            const scheduleNameInput = document.getElementById("scheduleName");
+            if (!scheduleNameInput.value.trim()) {
+                alert("Please enter a Schedule Name before creating your schedule.");
+                return false; // Prevent further actions
+            }
+
+            // Redirect to myschedules.html if validation passes
+            window.location.href = "myschedules.html";
+        }
     </script>
 </body>
 </html>
