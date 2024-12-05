@@ -74,7 +74,7 @@
     <div class="box">
         <h2>Required Courses</h2>
         <p>Please select the courses you have already completed:</p>
-        <ul class="checklist">
+        <ul class="checklist" id="reqCors">
             <li>
                 <input type="checkbox" id="item1">
                 <label for="item1">HASS 103 Writing and Communications Colloquim (formerly CAL 103) </label>
@@ -176,7 +176,7 @@
     <div class="box">
         <h2>Remaining Electives</h2>
         <p>Please select the number of courses you have left to complete from each category:</p>
-        <ul class="numlist">
+        <ul class="numlist" id="interests">
             <li>
                 <input type="number" id="num1" max="6" oninput="validateInput(this, 6)">
                 <label for="num1">Lower Humanities</label>
@@ -234,7 +234,7 @@
         </ul>
     </div>
     <div class="save-bubuttontton-container">
-        <button class=" save-button" onclick="validateSchedule()">Create Schedule</button>
+        <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
     </div>
     <script src="auth.js"></script>
     <script>
@@ -276,21 +276,47 @@
             }
         }
 
-        // Check for schedule name
-        function validateSchedule() {
-            const scheduleNameInput = document.getElementById("scheduleName");
-            const numCoursesInput = document.getElementById("numCourses");
-            if (!scheduleNameInput.value.trim()) {
+        // Check for validity and submit
+        function submitSchedule(even) {
+            event.preventDefault();
+
+            const scheduleNameInput = document.getElementById("scheduleName").value.trim();
+            const numCoursesInput = document.getElementById("numCourses").value;
+            if (!scheduleNameInput) {
                 alert("Please enter a Schedule Name before creating your schedule.");
                 return false; // Prevent further actions
             }
-            if (!numCourses.value.trim()) {
-                alert("Please enter a Number of Courses before creating your schedule.");
-                return false; // Prevent further actions
-            }
 
-            // Redirect to myschedules.html if validation passes
-            window.location.href = "myschedules.html";
+            // Courses taken
+            const coursesTaken = [];
+            document.querySelectorAll('#reqCors input[type="checkbox"]:checked').forEach(checkbox => {
+                checkedItems.push(checkbox.parentElement.textContent.trim());
+            });
+
+            // Remaining Electives
+            const remainingElectives = [];
+            document.querySelectorAll('.numlist input[type="number"]').forEach(input => {
+                remainingElectives.push({
+                    category: input.previousElementSibling.textContent.trim(),
+                    value: input.value
+                });
+            });
+
+            // Interests
+            const interests = [];
+            document.querySelectorAll('#interests input[type="checkbox"]').forEach(input => {
+                checkedItems.push(checkbox.parentElement.textContent.trim());
+            });
+
+            const data = {
+                scheduleName,
+                numCourses,
+                coursesTaken,
+                remainingElectives,
+                interests
+            };
+
+            
         }
     </script>
 </body>

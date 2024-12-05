@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
 
-    // Predefined credentials
+    // Hardcoded credentials for demo purposes
     const VALID_USER = {
         email: "admin@admin",
         password: "1234",
@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (isSignedIn()) {
             navLogin.textContent = "My Schedules";
-            navLogin.href = "myschedules.html";  // Directs to "My Schedules" page
+            navLogin.href = "myschedules.html";
             navLogin.onclick = null;
         } else {
             navLogin.textContent = "Log in";
-            navLogin.href = "login.html";  // Restores the "Log in" page link
+            navLogin.href = "login.html";
             navLogin.onclick = null;
         }
     };
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Handle form submission for login
     if (loginForm) {
         loginForm.addEventListener("submit", (event) => {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -36,15 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // Check credentials
             if (email === VALID_USER.email && password === VALID_USER.password) {
                 localStorage.setItem("isSignedIn", "true");
-                alert("Login successful! Redirecting to the home page...");
                 updateAuthState();
-                window.location.href = "index.html"; // Redirect to home page
+                window.location.href = "myschedules.html";
             } else {
                 alert("Invalid email or password. Please try again.");
             }
         });
     }
 
-    // Initialize navigation state
     updateAuthState();
 });

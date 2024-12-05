@@ -55,7 +55,7 @@ body {
     justify-content: center;
 }
 
-.about, .contact, .form {
+.about, .contact, .form, .myscheds {
     padding-top: 100px;
 }
 
@@ -98,10 +98,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-.form p, .home p, .login p {
+.form p, .home p, .login p, .myscheds p {
     color: #3f3c3c;
     font-size: 18px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .about p, .contact p {
@@ -111,7 +112,7 @@ h2 {
     margin-left: 100px;
 }
 
-.start-button {
+.start-button, .sign-out-button {
     background-color: #ff4c4c;
     color: white;
     padding: 15px 30px;
@@ -122,7 +123,7 @@ h2 {
     cursor: pointer;
 }
 
-.start-button:hover {
+.start-button:hover, .sign-out-button:hover {
     background-color: #cc0000;
 }
 
