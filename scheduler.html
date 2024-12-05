@@ -15,7 +15,7 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="about.html" class="nav-link">About</a>
             <a href="contact.html" class="nav-link">Contact</a>
-            <a href="login.html" class="nav-link">Log in</a>
+            <a href="login.html" class="nav-link" id="login">Log in</a>
         </nav>
     </header>
     <a href="index.html">Go back</a>
@@ -23,6 +23,13 @@
     <div class="box">
         <h2>Schedule name</h2>
         <input type="text" id="scheduleName" name="scheduleName" placeholder="Enter schedule name">
+        <h2>Number of Courses</h2>
+        <!--<input type="number" id="numCourses" max="6" oninput="validateInput(this, 6, 4)">-->
+        <select name="numCourses" id="numCourses">
+            <option value="four">4 (12-14 credits)</option>
+            <option value="five">5 (15-17 credits)</option>
+            <option value="six">6 (18-20 credits)</option>
+        </select>
     </div>
     <!--
     <div class="box">
@@ -229,6 +236,7 @@
     <div class="save-bubuttontton-container">
         <button class=" save-button" onclick="validateSchedule()">Create Schedule</button>
     </div>
+    <script src="auth.js"></script>
     <script>
         // Array to store checked items
         const checkedItems = [];
@@ -256,19 +264,28 @@
         });
 
         // Check numboxes
-        function validateInput(input, max) {
+        function validateInput(input, max, min=0) {
             input.value = input.value.replace(/[^0-9]/g, '');
             if (parseInt(input.value) > max) {
-                input.value = 6; // Reset to the maximum allowed value
+                input.value = max; // Reset to the maximum allowed value
                 alert("The maximum number of allowed courses is " + max.toString() + ".");
+            }
+            if (parseInt(input.value) < min) {
+                input.value = min; // Reset to the minimum allowed value
+                alert("The minimum number of allowed courses is " + min.toString() + ".");
             }
         }
 
         // Check for schedule name
         function validateSchedule() {
             const scheduleNameInput = document.getElementById("scheduleName");
+            const numCoursesInput = document.getElementById("numCourses");
             if (!scheduleNameInput.value.trim()) {
                 alert("Please enter a Schedule Name before creating your schedule.");
+                return false; // Prevent further actions
+            }
+            if (!numCourses.value.trim()) {
+                alert("Please enter a Number of Courses before creating your schedule.");
                 return false; // Prevent further actions
             }
 

@@ -15,12 +15,12 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="about.html" class="nav-link">About</a>
             <a href="contact.html" class="nav-link">Contact</a>
-            <a href="login.html" class="nav-link">Log in</a>
+            <a href="login.html" class="nav-link" id="login">Log in</a>
         </nav>
     </header>
     <div class="container box">
         <h1>Login to Your Account</h1>
-        <form action="index.html" method="POST" class="login-form">
+        <form id="login-form" class="login-form">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
             <br>
@@ -36,5 +36,6 @@
             Don't have an account? <a href="create_account.html">Create one here</a>.
         </p>
     </div>
+    <script src="auth.js"></script>
 </body>
 </html>

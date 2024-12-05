@@ -192,6 +192,24 @@ h2 {
     font-size: 1.2rem;
 }
 
+select {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-align-last: center;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 /*.radiolist {
     list-style-type: none;
     padding: 0;

@@ -15,14 +15,27 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="about.html" class="nav-link">About</a>
             <a href="contact.html" class="nav-link">Contact</a>
-            <a href="login.html" class="nav-link">Log in</a>
+            <a href="login.html" class="nav-link" id="login">Log in</a>
         </nav>
     </header>
-    <h1>About Us</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-        deserunt mollit anim id est laborum.</p>
+    <h1>My Schedules</h1>
+    <p>Here you can manage your schedules.</p>
+    <button id="sign-out" class="sign-out-button">Sign Out</button>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const signOutButton = document.getElementById("sign-out");
+
+            // Sign out functionality
+            signOutButton.addEventListener("click", () => {
+                localStorage.setItem("isSignedIn", "false"); // Clear login state
+                alert("You have signed out.");
+                window.location.href = "index.html"; // Redirect to home page
+            });
+
+            // Update navbar for this page
+            updateAuthState();
+        });
+    </script>
 </body>
 </html>
