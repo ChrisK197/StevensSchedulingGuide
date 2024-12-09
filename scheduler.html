@@ -277,20 +277,20 @@
         }
 
         // Check for validity and submit
-        function submitSchedule(even) {
+        function submitSchedule(event) {
             event.preventDefault();
 
             const scheduleNameInput = document.getElementById("scheduleName").value.trim();
             const numCoursesInput = document.getElementById("numCourses").value;
             if (!scheduleNameInput) {
                 alert("Please enter a Schedule Name before creating your schedule.");
-                return false; // Prevent further actions
+                return false;
             }
 
             // Courses taken
             const coursesTaken = [];
             document.querySelectorAll('#reqCors input[type="checkbox"]:checked').forEach(checkbox => {
-                checkedItems.push(checkbox.parentElement.textContent.trim());
+                coursesTaken.push(checkbox.parentElement.textContent.trim());
             });
 
             // Remaining Electives
@@ -298,25 +298,42 @@
             document.querySelectorAll('.numlist input[type="number"]').forEach(input => {
                 remainingElectives.push({
                     category: input.previousElementSibling.textContent.trim(),
-                    value: input.value
+                    value: parseInt(input.value) || 0
                 });
             });
 
             // Interests
             const interests = [];
-            document.querySelectorAll('#interests input[type="checkbox"]').forEach(input => {
-                checkedItems.push(checkbox.parentElement.textContent.trim());
+            document.querySelectorAll('.checklist input[type="checkbox"]:checked').forEach(checkbox => {
+                interests.push(checkbox.parentElement.textContent.trim());
             });
 
             const data = {
-                scheduleName,
-                numCourses,
+                scheduleName: scheduleNameInput,
+                numCourses: numCoursesInput,
                 coursesTaken,
                 remainingElectives,
                 interests
             };
 
-            
+            // Send data to generator.js
+            // I have no idea if this will work I don't get JS
+            fetch('generator.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(schedule => {
+                console.log("Generated Schedule: ", schedule);
+                alert("Schedule created successfully!");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error generating your schedule. Please try again.');
+            });
         }
     </script>
 </body>
