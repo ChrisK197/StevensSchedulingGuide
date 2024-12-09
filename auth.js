@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
+    const startButton = document.querySelector(".start-button");
 
     // Hardcoded credentials for demo purposes
     const VALID_USER = {
@@ -40,6 +41,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "myschedules.html";
             } else {
                 alert("Invalid email or password. Please try again.");
+            }
+        });
+    }
+
+    if (startButton) {
+        startButton.addEventListener("click", (event) => {
+            if (!isSignedIn()) {
+                event.preventDefault(); // Prevent navigation
+                alert("You must be signed in to start scheduling.");
             }
         });
     }
