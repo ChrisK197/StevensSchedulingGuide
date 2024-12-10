@@ -25,18 +25,24 @@
     <script src="auth.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const schedule = JSON.parse(localStorage.getItem('schedule'));
+            const scheduleName = localStorage.getItem('scheduleName') || 'Untitled Schedule';
 
-            if (schedule && Array.isArray(schedule)) {
-                const scheduleDiv = document.getElementById('generated-schedule');
-                scheduleDiv.innerHTML = `<h2>Your Generated Schedule</h2><ul>${schedule.map(course => `<li>${course}</li>`).join('')}</ul>`;
+            const selectedCourses = JSON.parse(localStorage.getItem('SelectedCourses')) || [];
+            const scheduleDiv = document.getElementById('generated-schedule');
+
+            scheduleDiv.innerHTML = `<h2>${scheduleName}</h2>`;
+
+            if (selectedCourses.length > 0) {
+                scheduleDiv.innerHTML += `<ul>${selectedCourses.map(course => `<li>${course}</li>`).join('')}</ul>`;
             } else {
-                document.getElementById('generated-schedule').innerHTML = '<h2>No schedule found</h2>';
+                scheduleDiv.innerHTML += '<h3>No courses selected</h3>';
             }
         });
-        document.addEventListener('DOMContentLoaded', function () {
-            const schedule = localStorage.getItem('schedule');
-            console.log('Schedule from localStorage:', schedule);
+        
+        // Sign-out functionality
+        document.getElementById('sign-out').addEventListener('click', function () {
+            localStorage.clear();
+            window.location.href = 'index.html';
         });
     </script>
 </body>

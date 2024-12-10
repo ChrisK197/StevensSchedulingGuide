@@ -35,7 +35,7 @@
     
         // Update the "Required Courses (Select x)" header
         const header = document.querySelector("#box h2");
-        header.textContent = `Required Courses (Select ${numCourses})`;
+        header.textContent = `Desired Courses (Select ${numCourses})`;
     
         // Retrieve selected courses from localStorage
         const recommendations_1 = localStorage.getItem('Recommendations');
@@ -70,6 +70,27 @@
             // Add the list item to the checklist
             checklist.appendChild(listItem);
         });
+
+        // Function to handle the form submission
+        function submitSchedule(event) {
+            event.preventDefault();
+
+            // Get all selected checkboxes
+            const selectedCourses = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+
+            // Check if the number of selected courses matches the required number (numCourses)
+            if (selectedCourses.length !== parseInt(numCourses)) {
+                alert(`Please select exactly ${numCourses} courses.`);
+            } else {
+                const selectedCoursesList = selectedCourses.map(course => course.value);
+                localStorage.setItem('SelectedCourses', JSON.stringify(selectedCoursesList));
+
+                window.location.href = 'myschedules.html';
+            }
+        }
+
+        const saveButton = document.querySelector('.save-button');
+        saveButton.addEventListener('click', submitSchedule);
     </script>
 </body>
 </html>
