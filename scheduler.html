@@ -26,9 +26,9 @@
         <h2>Number of Courses</h2>
         <!--<input type="number" id="numCourses" max="6" oninput="validateInput(this, 6, 4)">-->
         <select name="numCourses" id="numCourses">
-            <option value="four">4 (12-14 credits)</option>
-            <option value="five">5 (15-17 credits)</option>
-            <option value="six">6 (18-20 credits)</option>
+            <option value="4">4 (12-14 credits)</option>
+            <option value="5">5 (15-17 credits)</option>
+            <option value="6">6 (18-20 credits)</option>
         </select>
     </div>
     <!--
@@ -230,7 +230,7 @@
     <div class="box">
         <h2>Interests</h2>
         <p>Please select what subjects you are interested in:</p>
-        <ul class="checklist">
+        <ul class="checklist" id="ints">
             <li>
                 <input type="checkbox" id="int1" onclick="handleListSelection('int1')">
                 <label for="int1">Technology</label>
@@ -254,7 +254,7 @@
         </ul>
     </div>
     <div class="save-bubuttontton-container">
-        <button class=" save-button" onclick="location.href= 'Recommendations.html';">Create Schedule</button>
+        <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
     </div>
     <script src="auth.js"></script>
     <script>
@@ -307,61 +307,42 @@
 
             const scheduleNameInput = document.getElementById("scheduleName").value.trim();
             const numCoursesInput = document.getElementById("numCourses").value;
+
             if (!scheduleNameInput) {
                 alert("Please enter a Schedule Name before creating your schedule.");
-                return false;
+                return;
             }
 
-            // Courses taken
+            window.location.href = 'Recommendations.html';
+
+            //The rest doesn't work for now
+            // LEGACY CODE
+            /*
+            // Gather selected courses, electives, and interests
             const coursesTaken = [];
             document.querySelectorAll('#reqCors input[type="checkbox"]:checked').forEach(checkbox => {
                 coursesTaken.push(checkbox.parentElement.textContent.trim());
             });
 
-            // Remaining Electives
             const remainingElectives = [];
             document.querySelectorAll('.numlist input[type="number"]').forEach(input => {
                 remainingElectives.push({
-                    category: input.previousElementSibling.textContent.trim(),
+                    category: input.nextElementSibling.textContent.trim(),
                     value: parseInt(input.value) || 0
                 });
             });
 
-            // Interests
             const interests = [];
-            document.querySelectorAll('.checklist input[type="checkbox"]:checked').forEach(checkbox => {
+            document.querySelectorAll('#ints input[type="checkbox"]:checked').forEach(checkbox => {
                 interests.push(checkbox.parentElement.textContent.trim());
             });
 
-            const data = {
-                scheduleName: scheduleNameInput,
-                numCourses: numCoursesInput,
-                coursesTaken,
-                remainingElectives,
-                interests
-            };
+            // Generate the schedule
+            const schedule = generateSchedule(numCoursesInput, coursesTaken, remainingElectives, interests);
 
-            //Testing
-            
-
-            // Send data to generator.js
-            // I have no idea if this will work I don't get JS
-            fetch('generator.js', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(schedule => {
-                console.log("Generated Schedule: ", schedule);
-                alert("Schedule created successfully!");
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error generating your schedule. Please try again.');
-            });
+            //console.log('Schedule before saving:', schedule);
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+            window.location.href = 'myschedules.html';*/
         }
     </script>
 </body>

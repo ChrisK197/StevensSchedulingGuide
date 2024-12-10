@@ -19,20 +19,24 @@
         </nav>
     </header>
     <h1>My Schedules</h1>
-    <p>Here you can manage your schedules.</p>
+    <p>Here you can manage your schedules.</p>    
     <button id="sign-out" class="sign-out-button">Sign Out</button>
+    <div id="generated-schedule"></div>
     <script src="auth.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const signOutButton = document.getElementById("sign-out");
+        document.addEventListener('DOMContentLoaded', function () {
+            const schedule = JSON.parse(localStorage.getItem('schedule'));
 
-            signOutButton.addEventListener("click", () => {
-                localStorage.setItem("isSignedIn", "false");
-                alert("You have signed out.");
-                window.location.href = "index.html";
-            });
-
-            updateAuthState();
+            if (schedule && Array.isArray(schedule)) {
+                const scheduleDiv = document.getElementById('generated-schedule');
+                scheduleDiv.innerHTML = `<h2>Your Generated Schedule</h2><ul>${schedule.map(course => `<li>${course}</li>`).join('')}</ul>`;
+            } else {
+                document.getElementById('generated-schedule').innerHTML = '<h2>No schedule found</h2>';
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const schedule = localStorage.getItem('schedule');
+            console.log('Schedule from localStorage:', schedule);
         });
     </script>
 </body>

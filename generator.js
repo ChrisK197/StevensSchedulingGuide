@@ -1,3 +1,6 @@
+// This file isn't used right now, so it's just
+// LEGACY CODE
+
 const Courses = {
     Required: {
         Math: ["MA 121/MA 122", "MA 125/MA 126", "MA 222", "MA 331"],
@@ -42,44 +45,34 @@ const Courses = {
     }
 };
 
-function addCourseToMap(map, courseCode, value) {
-    map.set(courseCode, value);
-}
-
-function getCategoryCourses(category) {
-    return Courses[category];
-}
-
-//console.log("Available Required Math Courses:", Courses.Required.Math);
-
-addEventListener('fetch', event => {
-    if (event.request.method === 'POST') {
-        event.respondWith(handleRequest(event.request));
-    }
-});
-
-async function handleRequest(request) {
-    const body = await request.json();
-
-    const { numCourses, coursesTaken, remainingElectives, interests } = body;
-    const courseList = generateSchedule(numCourses, coursesTaken, remainingElectives, interests);
-
-    return new Response(JSON.stringify(courseList), {
-        headers: { 'Content-Type': 'application/json' }
-    });
-}
-
 function generateSchedule(numCourses, coursesTaken, remainingElectives, interests) {
-    const maxCourses = numCourses === 'six' ? 6 : numCourses === 'five' ? 5 : 4;
-    const schedule = [];
+    let schedule = [];
+    
+    // Flatten all available courses
+    let availableCourses = [];
+    availableCourses.push(...Courses.Required.Math);
+    availableCourses.push(...Courses.Required.CAL);
+    availableCourses.push(...Courses.CS);
+    
+    // Optionally add General, Technical, or other courses if needed
+    for (let category in Courses.General) {
+        for (let level in Courses.General[category]) {
+            availableCourses.push(...Courses.General[category][level]);
+        }
+    }
 
-    // Prioritize core courses from arrays
-    const allCourses = [...courseArrays.Required_Math, ...courseArrays.Required_CAL, ...Array.from(courseArrays.CS.keys())];
-    const availableCourses = allCourses.filter(course => !coursesTaken.includes(course));
+    for (let category in Courses.Technical) {
+        availableCourses.push(...Courses.Technical[category]);
+    }
 
-    // Add courses to fill up schedule
-    while (schedule.length < maxCourses && availableCourses.length > 0) {
-        schedule.push(availableCourses.shift());
+    // Filter out already taken courses from the available courses
+    availableCourses = availableCourses.filter(course => 
+        !coursesTaken.some(takenCourse => takenCourse.includes(course) || course.includes(takenCourse))
+    );
+    // Fill the schedule based on the number of courses required
+    for (let i = 0; i < availableCourses.length && schedule.length < numCourses; i++) {
+        console.log(`Adding course: ${availableCourses[i]}`);
+        schedule.push(availableCourses[i]);
     }
 
     return schedule;
