@@ -24,50 +24,72 @@
         <h2></h2>
         <ul class="checklist" id="recs"></ul>
     </div>
-    <div class="save-bubuttontton-container">
+    <div class="save-button-container">
         <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
     </div>
     <script src="auth.js"></script>
     <script>
         // Retrieve selected number of courses from localStorage
-        const numCourses = localStorage.getItem('numCourses') || 0;
-        console.log(localStorage.getItem('numCourses'));
+        const numCourses = parseInt(localStorage.getItem('numCourses')) || 0;
+        if (numCourses <= 0) {
+            alert("Please specify the number of courses to select.");
+        }
     
         // Update the "Required Courses (Select x)" header
         const header = document.querySelector("#box h2");
         header.textContent = `Desired Courses (Select ${numCourses})`;
     
         // Retrieve selected courses from localStorage
-        const recommendations_1 = localStorage.getItem('Recommendations');
-        const recommendations = JSON.parse(recommendations_1) || [];
+        const selectedCourses = JSON.parse(localStorage.getItem('selectedCourses')) || [];
+        const recommendations = JSON.parse(localStorage.getItem('Recommendations')) || [];
+        console.log("selectedCourses", selectedCourses);
         console.log("recommendations", recommendations);
     
         // Get the container where checkboxes will be added
         const checklist = document.getElementById("recs");
     
         // Iterate through the array and create a checkbox for each item
-        recommendations.forEach((item, index) => {
+        function createCheckboxItem(item, index, isRequired) {
             // Create a list item
             const listItem = document.createElement("li");
-    
+
             // Create a label element
             const label = document.createElement("label");
-    
+
             // Create a checkbox input element
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.name = "checkitem"; // Use the same name for grouping
             checkbox.value = item; // Assign item as value
-            checkbox.id = `item-${index}`;
-    
+            checkbox.id = `item-${isRequired ? 'required' : 'optional'}-${index}`;
+
+            // Optionally mark required courses
+            if (isRequired) {
+                const requiredBadge = document.createElement("span");
+                requiredBadge.textContent = " (Required) ";
+                requiredBadge.style.color = "red";
+                label.appendChild(requiredBadge);
+            }
+
             // Add the checkbox and text to the label
-            label.appendChild(checkbox);
+            label.prepend(checkbox);
             label.appendChild(document.createTextNode(item));
-    
+
             // Add the label to the list item
             listItem.appendChild(label);
-    
-            // Add the list item to the checklist
+
+            return listItem;
+        }
+
+        // Add required courses first
+        selectedCourses.forEach((item, index) => {
+            const listItem = createCheckboxItem(item, index, true);
+            checklist.appendChild(listItem);
+        });
+
+        // Add optional courses next
+        recommendations.forEach((item, index) => {
+            const listItem = createCheckboxItem(item, index + selectedCourses.length, false);
             checklist.appendChild(listItem);
         });
 
@@ -76,21 +98,26 @@
             event.preventDefault();
 
             // Get all selected checkboxes
-            const selectedCourses = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+            const selectedCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+            
+            // Get all required checkboxes
+            const requiredCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:not(:checked)[id*="required"]'));
+
+            // Check if all required courses are selected
+            if (requiredCheckboxes.length > 0) {
+                alert("Please select all required courses.");
+                return;  // Stop form submission if required courses are not selected
+            }
 
             // Check if the number of selected courses matches the required number (numCourses)
-            if (selectedCourses.length !== parseInt(numCourses)) {
+            if (selectedCheckboxes.length !== numCourses) {
                 alert(`Please select exactly ${numCourses} courses.`);
             } else {
-                const selectedCoursesList = selectedCourses.map(course => course.value);
+                const selectedCoursesList = selectedCheckboxes.map(course => course.value);
                 localStorage.setItem('SelectedCourses', JSON.stringify(selectedCoursesList));
-
                 window.location.href = 'myschedules.html';
             }
         }
-
-        const saveButton = document.querySelector('.save-button');
-        saveButton.addEventListener('click', submitSchedule);
     </script>
 </body>
 </html>
