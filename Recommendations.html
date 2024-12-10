@@ -20,43 +20,56 @@
     </header>
     <a href="index.html">Go back</a>
     <h1>Recommendations</h1>
-    <script>
-        const recommendations_1 = localStorage.getItem('Recommendations')
-        const recommendations= JSON.parse(recommendations_1)
-        console.log("recommendations", recommendations)
-    </script>
     <div class="box" id="box">
-        <h2>Required Courses (Select all)</h2>
+        <h2></h2>
+        <ul class="checklist" id="recs"></ul>
     </div>
+    <div class="save-bubuttontton-container">
+        <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
+    </div>
+    <script src="auth.js"></script>
     <script>
+        // Retrieve selected number of courses from localStorage
+        const numCourses = localStorage.getItem('numCourses') || 0;
+        console.log(localStorage.getItem('numCourses'));
+    
+        // Update the "Required Courses (Select x)" header
+        const header = document.querySelector("#box h2");
+        header.textContent = `Required Courses (Select ${numCourses})`;
+    
+        // Retrieve selected courses from localStorage
+        const recommendations_1 = localStorage.getItem('Recommendations');
+        const recommendations = JSON.parse(recommendations_1) || [];
+        console.log("recommendations", recommendations);
+    
         // Get the container where checkboxes will be added
-        const container = document.getElementById("box");
-
+        const checklist = document.getElementById("recs");
+    
         // Iterate through the array and create a checkbox for each item
-        index= 0;
-        console.log(recommendations[0])
-        for(let item in recommendations) {
+        recommendations.forEach((item, index) => {
+            // Create a list item
+            const listItem = document.createElement("li");
+    
             // Create a label element
             const label = document.createElement("label");
-
+    
             // Create a checkbox input element
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
-            checkbox.name = "checklist"; // Use the same name for grouping
+            checkbox.name = "checkitem"; // Use the same name for grouping
             checkbox.value = item; // Assign item as value
             checkbox.id = `item-${index}`;
-
+    
             // Add the checkbox and text to the label
             label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(recommendations[item]));
-
-            // Add some spacing and line break
-            label.style.display = "inline";
-
-            // Add the label to the container
-            container.appendChild(label);
-            index+=1
-        };
+            label.appendChild(document.createTextNode(item));
+    
+            // Add the label to the list item
+            listItem.appendChild(label);
+    
+            // Add the list item to the checklist
+            checklist.appendChild(listItem);
+        });
     </script>
 </body>
 </html>

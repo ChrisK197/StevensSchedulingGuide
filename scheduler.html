@@ -25,7 +25,7 @@
         <input type="text" id="scheduleName" name="scheduleName" placeholder="Enter schedule name">
         <h2>Number of Courses</h2>
         <!--<input type="number" id="numCourses" max="6" oninput="validateInput(this, 6, 4)">-->
-        <select name="numCourses" id="numCourses">
+        <select name="numCourses" id="numCourses" required>
             <option value="4">4 (12-14 credits)</option>
             <option value="5">5 (15-17 credits)</option>
             <option value="6">6 (18-20 credits)</option>
@@ -223,7 +223,7 @@
             }
             console.log(sharedArray);
             let string = JSON.stringify(sharedArray)
-            localStorage.setItem('Recommendations', string);
+            localStorage.setItem('Recommendations', JSON.stringify(sharedArray));
         }
         
     </script>
@@ -254,7 +254,7 @@
         </ul>
     </div>
     <div class="save-bubuttontton-container">
-        <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
+        <button class=" save-button" onclick="submitSchedule(event)">Continue</button>
     </div>
     <script src="auth.js"></script>
     <script>
@@ -312,6 +312,8 @@
                 alert("Please enter a Schedule Name before creating your schedule.");
                 return;
             }
+
+            localStorage.setItem('numCourses', numCoursesInput);
 
             window.location.href = 'Recommendations.html';
 
