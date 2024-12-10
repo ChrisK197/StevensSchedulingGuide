@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stevens Scheduling Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="form">
+    <header class="toolbar">
+        <a href="index.html" class="logo-link">
+            <img src="stevens_logo.png" alt="Stevens Institute of Technology" class="logo">
+        </a>
+        <nav class="nav-options">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="login.html" class="nav-link" id="login">Log in</a>
+        </nav>
+    </header>
+    <a href="index.html">Go back</a>
+    <h1>Recommendations</h1>
+    <script>
+        const recommendations_1 = localStorage.getItem('Recommendations')
+        const recommendations= JSON.parse(recommendations_1)
+        console.log("recommendations", recommendations)
+    </script>
+    <div class="box" id="box">
+        <h2>Required Courses (Select all)</h2>
+    </div>
+    <script>
+        // Get the container where checkboxes will be added
+        const container = document.getElementById("box");
+
+        // Iterate through the array and create a checkbox for each item
+        index= 0;
+        console.log(recommendations[0])
+        for(let item in recommendations) {
+            // Create a label element
+            const label = document.createElement("label");
+
+            // Create a checkbox input element
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "checklist"; // Use the same name for grouping
+            checkbox.value = item; // Assign item as value
+            checkbox.id = `item-${index}`;
+
+            // Add the checkbox and text to the label
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(recommendations[item]));
+
+            // Add some spacing and line break
+            label.style.display = "inline";
+
+            // Add the label to the container
+            container.appendChild(label);
+            index+=1
+        };
+    </script>
+</body>
+</html>
