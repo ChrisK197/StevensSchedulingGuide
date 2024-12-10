@@ -2,16 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const startButton = document.querySelector(".start-button");
 
-    // Hardcoded credentials for demo purposes
+    // Hardcoded credentials (for demo purposes)
     const VALID_USER = {
         email: "admin@admin",
         password: "1234",
     };
 
-    // Function to check if the user is signed in
+    // Check if signed in
     const isSignedIn = () => localStorage.getItem("isSignedIn") === "true";
 
-    // Function to update the navigation bar
+    // Update the navigation bar with login state
     const updateAuthState = () => {
         const navLogin = document.getElementById("login");
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Handle form submission for login
+    // Handle login form submission
     if (loginForm) {
         loginForm.addEventListener("submit", (event) => {
             event.preventDefault(); 
@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Check credentials
             if (email === VALID_USER.email && password === VALID_USER.password) {
                 localStorage.setItem("isSignedIn", "true");
                 updateAuthState();
@@ -45,10 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Prevent scheduling if not signed in
     if (startButton) {
         startButton.addEventListener("click", (event) => {
             if (!isSignedIn()) {
-                event.preventDefault(); // Prevent navigation
+                event.preventDefault();
                 alert("You must be signed in to start scheduling.");
             }
         });

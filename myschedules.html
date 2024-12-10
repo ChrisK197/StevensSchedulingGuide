@@ -24,6 +24,7 @@
     <div id="generated-schedule"></div>
     <script src="auth.js"></script>
     <script>
+        // Update schedule display element
         document.addEventListener('DOMContentLoaded', function () {
             const scheduleName = localStorage.getItem('scheduleName') || 'Untitled Schedule';
 
@@ -39,7 +40,7 @@
             }
         });
         
-        // Sign-out functionality
+        // Sign-out button
         document.getElementById('sign-out').addEventListener('click', function () {
             localStorage.clear();
             window.location.href = 'index.html';

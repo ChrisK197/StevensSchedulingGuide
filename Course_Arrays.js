@@ -1,3 +1,4 @@
+// This was just for development purposes
 const Required_Math= ["MA 121/MA 122", "MA 125/MA 126", "MA 222", "MA 331"]
 const Required_CAL= ["CAL 103", "CAL 105", "HSS 371"]
 const Required_map = new Map();

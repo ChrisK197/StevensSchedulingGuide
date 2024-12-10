@@ -193,6 +193,7 @@
         </ul>
     </div>-->
     <script>
+        // Assemble math and science elective arrays
         const mathsci_low= ["BIO 181 Biology and Biotechnology", "BIO 101 Introduction to Biology for Non-Science and Non-Engineering majors", "PEP 151 Introduction to Astronomy", "PEP 152 Introduction to Astrobiology", "MA 221 Differential Equations (MA 126 prerequisite)", "MA 225 Infinite Series (MA 122 prerequisite)", "MA 226 Multivariable Calculus II (MA 126 prerequisite)", "MA 232 Linear Algebra", "MA 236 Introduction Mathematical Logic"]
         const mathsci_upp= ["CH 325 Physical Chemistry", "CH 370 Principles of Polymer Chemistry", "PEP 320 Analytical Mechanics", "PEP 345 Modeling and Simulation", "MA 336 Modern Algebra (MA 232 prerequisite)", "MA 410 Differential Geometry (MA 232 prerequisite)"]
         let sharedArray = mathsci_low.concat(mathsci_upp);
@@ -203,6 +204,8 @@
                     sharedArray = sharedArray.filter(item => !items.includes(item));
                 }
         }
+
+        // Handle non-humanities interest form selection and store
         function handleListSelection(listId) {
             console.log(sharedArray);
             const isChecked = document.getElementById(listId).checked;
@@ -221,6 +224,8 @@
             let string = JSON.stringify(sharedArray)
             localStorage.setItem('Recommendations', JSON.stringify(sharedArray));
         }
+
+        // Handle humanities interest form selection and store
         function handleListSelection_hum(listId, level) {
             const isChecked = document.getElementById(listId).checked;
             if (listId === 'int10'){
@@ -325,6 +330,7 @@
     </div>
     <script src="auth.js"></script>
     <script>
+        // Prerequisites and corequisites for core requirements
         const courseRequirements = {
             "HASS 103 Writing and Communications Colloquium": { prerequisites: [], corequisites: [] },
             "HASS 105 Knowledge, Nature, Culture": { prerequisites: [], corequisites: [] },
@@ -349,6 +355,7 @@
             "CS 496 Principles of Programming Languages": { prerequisites: ["CS 385 Algorithms"], corequisites: [] },
             "CS Humanities (HSS 371 or HPL 455)": { prerequisites: [], corequisites: [] },
         };
+        // Other courses
         const Gen_Bus_low= ["BT 200: Financial Accounting", "BT 221 Statistics", "BT 243 Macroeconomics", "BT 244 Microeconomics"]
         const Gen_Bus_upp= ["BT 301 Strategy", "BT 350 Marketing", "BT 353 Project Management", "BT 370 Human Centered Design"]
         const Gen_Sci_low= ["BIO 181 Biology and Biotechnology", "BIO 101 Introduction to Biology for Non-Science and Non-Engineering majors", "PEP 151 Introduction to Astronomy", "PEP 152 Introduction to Astrobiology"]
@@ -378,13 +385,11 @@
         const Sci_phys= ["PEP 111 Mechanics", "PEP 112 Electricity and Magnetism"]
         const Sci_chem= ["CH 115 General Chemistry I", "CH 116 General Chemistry II"]
         const Sci_bio= ["BIO 101 Introduction to Biology for Non-Science and Non-Engineering Majors"]
-        // Array to store checked items
-        const checkedItems = [];
 
-        // Get all checkbox elements
+        const checkedItems = [];
         const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
 
-        // Add event listeners to each checkbox
+        // Update array of checked items
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', (event) => {
                 const value = event.target.value;
@@ -396,29 +401,31 @@
                         checkedItems.splice(index, 1);
                     }
                 }
-                console.log(checkedItems); // Log the updated array
+                console.log(checkedItems);
             });
         });
 
+        // From legacy numbox item
         /* Check numboxes
         function validateInput(input, max, min=0) {
             input.value = input.value.replace(/[^0-9]/g, '');
             if (parseInt(input.value) > max) {
-                input.value = max; // Reset to the maximum allowed value
+                input.value = max;
                 alert("The maximum number of allowed courses is " + max.toString() + ".");
             }
             if (parseInt(input.value) < min) {
-                input.value = min; // Reset to the minimum allowed value
+                input.value = min;
                 alert("The minimum number of allowed courses is " + min.toString() + ".");
             }
         }*/
 
+        // Validate required course selection by checking for prerequisites
         function validateRequirements(selectedCourses) {
             let errorMessage = "";
 
             // Helper function to check prerequisites recursively
             function checkPrerequisites(course, visited = new Set()) {
-                // Avoid circular dependencies
+                // Base case
                 if (visited.has(course)) {
                     return;
                 }
@@ -426,17 +433,16 @@
 
                 const prerequisites = courseRequirements[course]?.prerequisites || [];
                 for (const prereq of prerequisites) {
-                    // If a prerequisite is not selected, log an error
+                    // Cannot take two courses where one is the prereq of another
                     if (selectedCourses.includes(prereq)) {
                         errorMessage += `Error: ${prereq} is a prerequisite for another selected course.\n`;
                     } else {
-                        // Recursively check the prerequisites of the prerequisite
                         checkPrerequisites(prereq, visited);
                     }
                 }
             }
 
-            // Loop through the selected courses
+            // Check all selected required courses
             for (const course of selectedCourses) {
                 checkPrerequisites(course);
             }
@@ -454,43 +460,45 @@
             return errorMessage;
         }
 
-    function submitSchedule(event) {
-        event.preventDefault();
+        // Submit form
+        function submitSchedule(event) {
+            event.preventDefault();
 
-        const scheduleNameInput = document.getElementById("scheduleName").value.trim();
-        const numCoursesInput = document.getElementById("numCourses").value;
+            const scheduleNameInput = document.getElementById("scheduleName").value.trim();
+            const numCoursesInput = document.getElementById("numCourses").value;
 
-        if (!scheduleNameInput) {
-            alert("Please enter a Schedule Name before creating your schedule.");
-            return;
-        }
+            if (!scheduleNameInput) {
+                alert("Please enter a Schedule Name before creating your schedule.");
+                return;
+            }
 
-        // Collect selected courses
-        const selectedCourses = [];
-        document.querySelectorAll('#reqCors input[type="checkbox"]:checked').forEach(checkbox => {
-            selectedCourses.push(checkbox.value);
-        });
+            // Store required courses
+            const selectedCourses = [];
+            document.querySelectorAll('#reqCors input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedCourses.push(checkbox.value);
+            });
 
-        // Validate selected courses
-        const validationMessage = validateRequirements(selectedCourses);
-        if (validationMessage.includes("prerequisite")) {
-            alert(validationMessage);
-            return;
-        } else if (validationMessage.includes("corequisite")) {
-            alert(validationMessage); // Allow submission but warn for missing corequisites
-        }
+            // Validate selected courses
+            const validationMessage = validateRequirements(selectedCourses);
+            // Error if prerequisite error, warning if corequisite error
+            if (validationMessage.includes("prerequisite")) {
+                alert(validationMessage);
+                return;
+            } else if (validationMessage.includes("corequisite")) {
+                alert(validationMessage);
+            }
 
-        if (selectedCourses.length > parseInt(numCoursesInput)) {
-            alert("Too many required courses were selected.");
-            return;
-        }
+            if (selectedCourses.length > parseInt(numCoursesInput)) {
+                alert("Too many required courses were selected.");
+                return;
+            }
 
-        // Save data to localStorage
-        localStorage.setItem('scheduleName', scheduleNameInput);
-        localStorage.setItem('numCourses', numCoursesInput);
-        localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses));
+            // Save data to localStorage
+            localStorage.setItem('scheduleName', scheduleNameInput);
+            localStorage.setItem('numCourses', numCoursesInput);
+            localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses));
 
-        window.location.href = 'Recommendations.html';
+            window.location.href = 'Recommendations.html';
         }
     </script>
 </body>

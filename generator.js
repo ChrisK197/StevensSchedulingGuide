@@ -1,6 +1,6 @@
-// This file isn't used right now, so it's just
-// LEGACY CODE
+// This file isn't used right now, so it's just Legacy Code
 
+// Was playing around with JS data structures - what is this language lol
 const Courses = {
     Required: {
         Math: ["MA 121/MA 122", "MA 125/MA 126", "MA 222", "MA 331"],
@@ -45,22 +45,22 @@ const Courses = {
     }
 };
 
+// Rudimentary algorithm that just picks courses straight up
 function generateSchedule(numCourses, coursesTaken, remainingElectives, interests) {
     let schedule = [];
     
-    // Flatten all available courses
+    // Flatten course arrays
     let availableCourses = [];
     availableCourses.push(...Courses.Required.Math);
     availableCourses.push(...Courses.Required.CAL);
     availableCourses.push(...Courses.CS);
     
-    // Optionally add General, Technical, or other courses if needed
+    // Testing - Add General and Technical courses
     for (let category in Courses.General) {
         for (let level in Courses.General[category]) {
             availableCourses.push(...Courses.General[category][level]);
         }
     }
-
     for (let category in Courses.Technical) {
         availableCourses.push(...Courses.Technical[category]);
     }
@@ -69,6 +69,7 @@ function generateSchedule(numCourses, coursesTaken, remainingElectives, interest
     availableCourses = availableCourses.filter(course => 
         !coursesTaken.some(takenCourse => takenCourse.includes(course) || course.includes(takenCourse))
     );
+    
     // Fill the schedule based on the number of courses required
     for (let i = 0; i < availableCourses.length && schedule.length < numCourses; i++) {
         console.log(`Adding course: ${availableCourses[i]}`);
