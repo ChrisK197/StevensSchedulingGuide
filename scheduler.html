@@ -199,37 +199,70 @@
             </li>
         </ul>
     </div>
+    <script>
+        let sharedArray = []
+        function updateSharedArray(addItems, items) {
+                if (addItems) {
+                    sharedArray = [...sharedArray, ...items];
+                } else {
+                    sharedArray = sharedArray.filter(item => !items.includes(item));
+                }
+        }
+        function handleListSelection(listId) {
+            const isChecked = document.getElementById(listId).checked;
+            if (listId === 'int1') {
+                updateSharedArray(isChecked, Tech_App);
+            } else if (listId === 'int2') {
+                updateSharedArray(isChecked, Tech_Theory);
+            } else if (listId === 'int3'){
+                updateSharedArray(isChecked, Gen_Hum_low);
+            } else if (listId === 'int4'){
+                updateSharedArray(isChecked, Hum_Lit_low);
+            } else if (listId === 'int5'){
+                updateSharedArray(isChecked, Gen_Bus_low);
+            }
+            console.log(sharedArray);
+            let string = JSON.stringify(sharedArray)
+            localStorage.setItem('Recommendations', string);
+        }
+        
+    </script>
     <div class="box">
         <h2>Interests</h2>
-        <p>Please select what subjects you are interestred in:</p>
+        <p>Please select what subjects you are interested in:</p>
         <ul class="checklist">
             <li>
-                <input type="checkbox" id="int1">
+                <input type="checkbox" id="int1" onclick="handleListSelection('int1')">
                 <label for="int1">Technology</label>
             </li>
             <li>
-                <input type="checkbox" id="int2">
+                <input type="checkbox" id="int2" onclick="handleListSelection('int2')">
                 <label for="int2">Science</label>
             </li>
             <li>
-                <input type="checkbox" id="int3">
+                <input type="checkbox" id="int3" onclick="handleListSelection('int3')">
                 <label for="int3">Humanities</label>
             </li>
             <li>
-                <input type="checkbox" id="int4">
+                <input type="checkbox" id="int4" onclick="handleListSelection('int4')">
                 <label for="int4">Business</label>
             </li>
             <li>
-                <input type="checkbox" id="int5">
+                <input type="checkbox" id="int5" onclick="handleListSelection('int5')">
                 <label for="int5">Engineering</label>
             </li>
         </ul>
     </div>
     <div class="save-bubuttontton-container">
-        <button class=" save-button" onclick="submitSchedule(event)">Create Schedule</button>
+        <button class=" save-button" onclick="location.href= 'Recommendations.html';">Create Schedule</button>
     </div>
     <script src="auth.js"></script>
     <script>
+        const Tech_App= ["CS 522 Mobile Systems and Applications", "CS 546 Web Programming", "CS 545 Human-Computer Interaction", "CS 566 Smartphone and Mobile Security", "CS 146 Introduction to Web Programming and Project Development", "CS 370 Creative Problem Solving and Team Programming", "CS 574 Object-Oriented Analysis and Design", "CS 537 Interactive Computer Graphics", "CS 526 Enterprise and Cloud Computing", "CS 548 Enterprise Software Architecture and Design", "CS 597 User Experience Design and Programming", "CS 609 Data Management and Exploration on the Web"]
+        const Tech_Theory= ["CS 442 Database Management Systems ", "CS 503 Discrete Mathematics for Cryptography", "CS 579 Foundations of Cryptography", "CS 643 Formal Verification of Software", "CS 601 Algorithmic Complexity"]
+        const Gen_Hum_low= ["HAR 144 Introduction to Photography", "HAR 260 Game Design 1", "HHS 125 U.S. History to 1865", "HHS 126 U.S. History since 1865", "HLI 116 Analysis of Literary Forms", "HLI 227 Introduction to Poetry Writing", "HMU 192 Music Appreciation I", "HMU 201 Music Theory I", "HQSS 141 Introduction to Sociology", "HQSS 175 Introduction to Psychology"]
+        const Hum_Lit_low= ["HLI 105 Special Topics in Literature", "HLI 113 Western Literature: Classical Literature", "HLI 114 Western Literature: Classical Literature", "HLI  115 The English Language: Language of Ideas", "HLI 116 Analysis of Literary Forms", "HLI 117 Colonial and Romantic American Literature", "HLI 201 Introduction to Theater", "HLI 220 Images of Science in Literature", "HLI 221 Introduction to Cinema", "HLI 221 Introduction to Cinema", "HLI 223 Introduction to Fiction Writing", "HLI 225 Introduction to Screenwriting", "HLI 227 Introduction to Poetry Writing", "HLI 229 Nature Writing: Identity and Place"]
+        const Gen_Bus_low= ["BT 200: Financial Accounting", "BT 221 Statistics", "BT 243 Macroeconomics", "BT 244 Microeconomics"]
         // Array to store checked items
         const checkedItems = [];
 
@@ -307,6 +340,9 @@
                 remainingElectives,
                 interests
             };
+
+            //Testing
+            
 
             // Send data to generator.js
             // I have no idea if this will work I don't get JS
