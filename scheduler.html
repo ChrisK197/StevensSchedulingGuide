@@ -400,7 +400,7 @@
             });
         });
 
-        // Check numboxes
+        /* Check numboxes
         function validateInput(input, max, min=0) {
             input.value = input.value.replace(/[^0-9]/g, '');
             if (parseInt(input.value) > max) {
@@ -411,22 +411,34 @@
                 input.value = min; // Reset to the minimum allowed value
                 alert("The minimum number of allowed courses is " + min.toString() + ".");
             }
-        }
+        }*/
 
         function validateRequirements(selectedCourses) {
             let errorMessage = "";
 
-            // Loop through the selected courses
-            for (const course of selectedCourses) {
+            // Helper function to check prerequisites recursively
+            function checkPrerequisites(course, visited = new Set()) {
+                // Avoid circular dependencies
+                if (visited.has(course)) {
+                    return;
+                }
+                visited.add(course);
+
                 const prerequisites = courseRequirements[course]?.prerequisites || [];
-                
-                // Check if a prerequisite is selected without the course that depends on it
                 for (const prereq of prerequisites) {
-                    // If the prerequisite is in selectedCourses but the course is not, alert
+                    // If a prerequisite is not selected, log an error
                     if (selectedCourses.includes(prereq)) {
-                        errorMessage += `You cannot take ${course} without completing its prerequisite ${prereq}.\n`;
+                        errorMessage += `Error: ${prereq} is a prerequisite for another selected course.\n`;
+                    } else {
+                        // Recursively check the prerequisites of the prerequisite
+                        checkPrerequisites(prereq, visited);
                     }
                 }
+            }
+
+            // Loop through the selected courses
+            for (const course of selectedCourses) {
+                checkPrerequisites(course);
             }
 
             // Check for missing corequisites
@@ -461,11 +473,16 @@
 
         // Validate selected courses
         const validationMessage = validateRequirements(selectedCourses);
-        if (validationMessage.includes("cannot take")) {
+        if (validationMessage.includes("prerequisite")) {
             alert(validationMessage);
             return;
-        } else if (validationMessage.includes("Warning")) {
+        } else if (validationMessage.includes("corequisite")) {
             alert(validationMessage); // Allow submission but warn for missing corequisites
+        }
+
+        if (selectedCourses.length > parseInt(numCoursesInput)) {
+            alert("Too many required courses were selected.");
+            return;
         }
 
         // Save data to localStorage

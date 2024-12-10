@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (email === VALID_USER.email && password === VALID_USER.password) {
                 localStorage.setItem("isSignedIn", "true");
                 updateAuthState();
-                window.location.href = "myschedules.html";
+                window.location.href = "index.html";
             } else {
                 alert("Invalid email or password. Please try again.");
             }
